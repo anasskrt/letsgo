@@ -3,3 +3,5 @@
 *.test
 tmp/
 .DS_Store
+/api
+/ingester
