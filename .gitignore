@@ -1,0 +1,15 @@
+# binaires compilés
+/api
+/ingester
+*.exe
+
+# fichier d'environnement avec les secrets
+.env
+
+# fichiers IDE
+.idea/
+.vscode/
+
+# divers
+*.log
+tmp/
