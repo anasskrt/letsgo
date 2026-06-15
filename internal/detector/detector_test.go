@@ -67,22 +67,28 @@ func TestConsecutiveSegmentLogic(t *testing.T) {
 }
 
 func TestHeatwaveSegmentLogic(t *testing.T) {
-	daily := []model.AggregatedDaily{
-		{Day: "2026-06-01", MaxTemp: 36},
-		{Day: "2026-06-02", MaxTemp: 37},
-		{Day: "2026-06-03", MaxTemp: 38},
-		{Day: "2026-06-04", MaxTemp: 34},
-		{Day: "2026-06-05", MaxTemp: 39},
-	}
+	day1 := time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC)
+	day2 := time.Date(2026, 6, 2, 0, 0, 0, 0, time.UTC)
+	day3 := time.Date(2026, 6, 3, 0, 0, 0, 0, time.UTC)
+	day4 := time.Date(2026, 6, 4, 0, 0, 0, 0, time.UTC)
+	day5 := time.Date(2026, 6, 5, 0, 0, 0, 0, time.UTC)
 
-	type segment struct {
-		start string
-		end   string
-		count int
+	daily := []model.AggregatedDaily{
+		{Day: day1, MaxTemp: 36},
+		{Day: day2, MaxTemp: 37},
+		{Day: day3, MaxTemp: 38},
+		{Day: day4, MaxTemp: 34},
+		{Day: day5, MaxTemp: 39},
 	}
 
 	minDays := 3
 	threshold := 35.0
+
+	type segment struct {
+		start time.Time
+		end   time.Time
+		count int
+	}
 
 	var segments []segment
 	var cur *segment
@@ -108,8 +114,8 @@ func TestHeatwaveSegmentLogic(t *testing.T) {
 	if segments[0].count != 3 {
 		t.Errorf("expected 3 days, got %d", segments[0].count)
 	}
-	if segments[0].start != "2026-06-01" {
-		t.Errorf("expected start 2026-06-01, got %s", segments[0].start)
+	if !segments[0].start.Equal(day1) {
+		t.Errorf("expected start 2026-06-01, got %s", segments[0].start.Format("2006-01-02"))
 	}
 }
 

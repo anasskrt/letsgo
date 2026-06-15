@@ -30,13 +30,13 @@ type Observation struct {
 }
 
 type AggregatedDaily struct {
-	Day        string  `json:"day"`
-	AvgTemp    float64 `json:"avg_temp"`
-	MaxTemp    float64 `json:"max_temp"`
-	MinTemp    float64 `json:"min_temp"`
-	TotalPrecip float64 `json:"total_precip"`
-	AvgWind    float64 `json:"avg_wind"`
-	MaxGust    float64 `json:"max_gust"`
+	Day        time.Time `json:"day"`
+	AvgTemp    float64   `json:"avg_temp"`
+	MaxTemp    float64   `json:"max_temp"`
+	MinTemp    float64   `json:"min_temp"`
+	TotalPrecip float64  `json:"total_precip"`
+	AvgWind    float64   `json:"avg_wind"`
+	MaxGust    float64   `json:"max_gust"`
 }
 
 type EventType string

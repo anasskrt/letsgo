@@ -163,11 +163,6 @@ func (e *Engine) detectConsecutiveTemp(stationID int, daily []model.AggregatedDa
 	var cur *segment
 
 	for _, d := range daily {
-		day, err := time.Parse("2006-01-02", d.Day)
-		if err != nil {
-			continue
-		}
-
 		cond := false
 		switch field {
 		case "max":
@@ -178,9 +173,9 @@ func (e *Engine) detectConsecutiveTemp(stationID int, daily []model.AggregatedDa
 
 		if cond {
 			if cur == nil {
-				cur = &segment{start: day, end: day, maxTemp: d.MaxTemp, minTemp: d.MinTemp, avgTemp: d.AvgTemp, count: 1}
+				cur = &segment{start: d.Day, end: d.Day, maxTemp: d.MaxTemp, minTemp: d.MinTemp, avgTemp: d.AvgTemp, count: 1}
 			} else {
-				cur.end = day
+				cur.end = d.Day
 				if d.MaxTemp > cur.maxTemp {
 					cur.maxTemp = d.MaxTemp
 				}
